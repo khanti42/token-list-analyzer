@@ -4,7 +4,6 @@ A lightweight Bash utility script for inspecting and transforming ERC-20 token l
 
 No install required. Just **curl and run**.
 
----
 
 ## 🚀 Quickstart
 
@@ -14,35 +13,8 @@ curl -s https://raw.githubusercontent.com/YOUR_USERNAME/YOUR_REPO_NAME/main/toke
 
 Replace `<command>` and `[options]` as described below.
 
----
 
 ## 🔧 Commands
-
-### `check-structure`
-
-Validate that each token has the required fields:
-
-```bash
-bash tokenlist-utils.sh check-structure --file tokenlist.json
-```
-
-Or with curl:
-
-```bash
-curl -s https://raw.githubusercontent.com/YOUR_USERNAME/YOUR_REPO_NAME/main/tokenlist-utils.sh | bash -s check-structure --url https://example.com/tokenlist.json
-```
-
----
-
-### `print-structure`
-
-Print the JSON path structure (for introspection/debugging):
-
-```bash
-bash tokenlist-utils.sh print-structure --file tokenlist.json
-```
-
----
 
 ### `extract-token-metadata`
 
@@ -64,7 +36,28 @@ This command will:
 The generated JSON files follow MetaMask's metadata schema and reference the correct relative icon path in PNG format.
 
 
----
+### `check-structure`
+
+Validate that each token has the required fields:
+
+```bash
+bash tokenlist-utils.sh check-structure --file tokenlist.json
+```
+
+Or with curl:
+
+```bash
+curl -s https://raw.githubusercontent.com/YOUR_USERNAME/YOUR_REPO_NAME/main/tokenlist-utils.sh | bash -s check-structure --url https://example.com/tokenlist.json
+```
+
+
+### `print-structure`
+
+Print the JSON path structure (for introspection/debugging):
+
+```bash
+bash tokenlist-utils.sh print-structure --file tokenlist.json
+```
 
 ### `print-pr-description`
 
@@ -74,21 +67,18 @@ Generate a PR description in **Markdown format** inside a code block, with links
 bash tokenlist-utils.sh print-pr-description --file tokenlist.json "https://evm.flowscan.io" "https://example.com/tokenlist.json"
 ```
 
----
 
 ## 📁 Output Structure
 
 - `metadata/eip155:[CHAIN_ID]/erc20:[ADDRESS].json` – contract metadata  
 - `icons/eip155:[CHAIN_ID]/erc20:[ADDRESS].svg|.png|.jpg` – downloaded token icons
 
----
 
 ## 📝 Requirements
 
 - Bash 4+  
 - `jq`, `curl`, `file`
 
----
 
 ## ✅ Supported Fields (per token)
 
@@ -105,7 +95,6 @@ Each token must have the following fields:
 }
 ```
 
----
 
 ## 🤝 Contributions
 
