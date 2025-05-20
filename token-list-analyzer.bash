@@ -19,8 +19,47 @@ Commands:
 Options:
   --file <path>        Input JSON file (default: tokenlist.json)
   --url <url>          URL to download tokenlist (overrides --file)
+  --contract-metadata-folder <path>
+                       Folder to store contract metadata (default: ./)
 EOF
 }
+
+is_eip55_address() {
+  local address="$1"
+
+  local uname_os
+  local uname_arch
+  local binary_path
+
+  uname_os="$(uname -s)"
+  uname_arch="$(uname -m)"
+
+  case "$uname_os" in
+    Darwin)  os="darwin" ;;
+    Linux)   os="linux" ;;
+    MINGW*|MSYS*|CYGWIN*) os="windows" ;;
+    *) echo "❌ Unsupported OS: $uname_os"; return 1 ;;
+  esac
+
+  case "$uname_arch" in
+    x86_64) arch="amd64" ;;
+    arm64|aarch64) arch="arm64" ;;
+    *) echo "❌ Unsupported architecture: $uname_arch"; return 1 ;;
+  esac
+
+  binary_path="./eip55check/bin/eip55check-${os}-${arch}"
+  [[ "$os" == "windows" ]] && binary_path="${binary_path}.exe"
+
+  if [[ ! -x "$binary_path" ]]; then
+    echo "❌ Missing or non-executable binary: $binary_path"
+    return 1
+  fi
+
+  if ! "$binary_path" "$address"; then
+    return 1
+  fi
+}
+
 
 json_structure() {
   local input="$1"
@@ -86,7 +125,13 @@ check_structure() {
       echo "$token_json" | jq
       echo
     else
-      echo "✅ Token #$index ($symbol) is valid"
+      echo "✅ Token #$index ($symbol) structure is valid"
+    fi
+
+    address=$(echo "$token_json" | jq -r '.address')
+    if ! is_eip55_address "$address"; then
+      has_missing=1
+      output+="  ❌ Invalid EIP-55 address: $address"$'\n'
     fi
   done
 }
