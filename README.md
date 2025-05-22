@@ -8,7 +8,8 @@ No install required. Just **curl and run**.
 ## 🚀 Quickstart
 
 ```bash
-curl -s https://raw.githubusercontent.com/YOUR_USERNAME/YOUR_REPO_NAME/main/tokenlist-utils.sh | bash -s <command> [options]
+clone repo 
+bash tokenlist-utils.sh --help 
 ```
 
 Replace `<command>` and `[options]` as described below.
