@@ -14,6 +14,8 @@ Commands:
   print-structure      Show all unique JSON paths.
   extract-token-metadata
                        Generate metadata and download icons.
+  print-pr-description
+                       Generate a PR description for token list.
   help                 Show this help message.
 
 Options:
